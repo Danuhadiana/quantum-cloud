@@ -125,15 +125,41 @@ export default function CheckoutPage({ orderData, onBackToHome }) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // REAL-TIME MIDTRANS PAYMENT EXECUTION (Strict Verification)
-  const handlePayWithMidtrans = () => {
+  // REAL-TIME MIDTRANS PAYMENT EXECUTION (Strict Verification with Real Token)
+  const handlePayWithMidtrans = async () => {
     setIsProcessingPayment(true);
     setPaymentError(null);
 
-    // Call Real-time Midtrans Snap if available in window
-    if (window.snap && typeof window.snap.pay === 'function') {
-      try {
-        window.snap.pay('SAMPLE-SNAP-TOKEN-' + Date.now(), {
+    // Ekstrak nilai nominal angka dari string harga (misal: "Mulai Rp 1.500.000" -> 1500000)
+    let numericAmount = 1500000;
+    if (orderData?.price) {
+      const parsed = parseInt(orderData.price.replace(/[^0-9]/g, ''), 10);
+      if (!isNaN(parsed) && parsed > 0) {
+        numericAmount = parsed;
+      }
+    }
+
+    try {
+      const res = await fetch('/api/create-transaction', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orderId: `${invoiceNumber.replace(/\//g, '-')}-${Math.floor(100 + Math.random() * 900)}`,
+          amount: numericAmount,
+          customerName: name.trim() || 'Klien Quantum',
+          customerPhone: whatsapp.trim() || '089507146296'
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.token) {
+        throw new Error(data.error_messages ? data.error_messages.join(', ') : (data.error || 'Gagal membuat sesi pembayaran Midtrans'));
+      }
+
+      // Eksekusi Pop-up Midtrans Snap Resmi
+      if (window.snap && typeof window.snap.pay === 'function') {
+        window.snap.pay(data.token, {
           onSuccess: function(result) {
             setIsProcessingPayment(false);
             setStep('success');
@@ -141,28 +167,25 @@ export default function CheckoutPage({ orderData, onBackToHome }) {
           },
           onPending: function(result) {
             setIsProcessingPayment(false);
-            setPaymentError("Pembayaran Anda masih pending. Silakan selesaikan pembayaran di aplikasi bank/wallet Anda terlebih dahulu.");
+            setPaymentError("Pembayaran masih pending. Silakan selesaikan pembayaran di aplikasi e-wallet / m-banking Anda.");
           },
           onError: function(result) {
             setIsProcessingPayment(false);
-            setPaymentError("Terjadi kendala pada gateway pembayaran. Silakan coba kembali.");
+            setPaymentError("Pembayaran gagal atau dibatalkan oleh gateway Midtrans.");
           },
           onClose: function() {
             setIsProcessingPayment(false);
           }
         });
-        return;
-      } catch (err) {
-        // Fallback
+      } else if (data.redirect_url) {
+        // Fallback jika snap popup terblokir pop-up blocker browser
+        window.open(data.redirect_url, '_blank');
+        setIsProcessingPayment(false);
       }
-    }
-
-    // Strict Gateway Verification (Menghubungi Server Bank/Midtrans)
-    setTimeout(() => {
+    } catch (err) {
       setIsProcessingPayment(false);
-      setStep('success');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 2800);
+      setPaymentError(err.message || 'Terjadi kendala saat menghubungi gateway Midtrans.');
+    }
   };
 
   const handleCopyVa = (vaNumber) => {
