@@ -119,14 +119,21 @@ export default function CheckoutPage({ orderData, onBackToHome }) {
     }, 500);
   };
 
-  const handleProceedToPayment = (e) => {
-    e.preventDefault();
-    setStep('payment');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  // REAL-TIME MIDTRANS PAYMENT EXECUTION (Langsung Panggil Midtrans Tanpa Layar Perantara)
+  const handlePayWithMidtrans = async (e) => {
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+    }
 
-  // REAL-TIME MIDTRANS PAYMENT EXECUTION (Strict Verification with Real Token)
-  const handlePayWithMidtrans = async () => {
+    if (!name.trim()) {
+      setPaymentError("Silakan masukkan Nama Lengkap atau Nama Bisnis Anda.");
+      return;
+    }
+    if (!whatsapp.trim()) {
+      setPaymentError("Silakan masukkan Nomor WhatsApp aktif Anda.");
+      return;
+    }
+
     setIsProcessingPayment(true);
     setPaymentError(null);
 
@@ -157,7 +164,7 @@ export default function CheckoutPage({ orderData, onBackToHome }) {
         throw new Error(data.error_messages ? data.error_messages.join(', ') : (data.error || 'Gagal membuat sesi pembayaran Midtrans'));
       }
 
-      // Eksekusi Pop-up Midtrans Snap Resmi
+      // Langsung Buka Pop-up Resmi Midtrans Snap (Real-time GoPay, QRIS, VA)
       if (window.snap && typeof window.snap.pay === 'function') {
         window.snap.pay(data.token, {
           onSuccess: function(result) {
@@ -178,7 +185,6 @@ export default function CheckoutPage({ orderData, onBackToHome }) {
           }
         });
       } else if (data.redirect_url) {
-        // Fallback jika snap popup terblokir pop-up blocker browser
         window.open(data.redirect_url, '_blank');
         setIsProcessingPayment(false);
       }
@@ -331,18 +337,18 @@ Saya lampirkan foto / screenshot struk bukti pembayaran berhasil di bawah ini. M
               {step === 'form' && (
                 <div>
                   <div className="mb-6">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 bg-neutral-100 px-3 py-1 rounded-full">
-                      Langkah 1 dari 2: Data Pemesan &amp; Pembayaran
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+                      Pemesanan &amp; Pembayaran Midtrans Instan
                     </span>
                     <h3 className="text-2xl font-black text-neutral-900 tracking-tight mt-3">
                       Lengkapi Data Pemesanan
                     </h3>
                     <p className="text-xs text-neutral-500 mt-1">
-                      Data ini diperlukan untuk registrasi domain dan penerbitan faktur resmi Anda.
+                      Data ini digunakan untuk pembuatan faktur resmi dan pembukaan gerbang pembayaran Midtrans.
                     </p>
                   </div>
 
-                  <form onSubmit={handleProceedToPayment} className="space-y-5 text-xs sm:text-sm">
+                  <form onSubmit={handlePayWithMidtrans} className="space-y-5 text-xs sm:text-sm">
                     <div>
                       <label className="block text-xs font-bold text-neutral-700 mb-1.5">
                         Nama Lengkap / Nama Bisnis *
@@ -511,140 +517,34 @@ Saya lampirkan foto / screenshot struk bukti pembayaran berhasil di bawah ini. M
                       ></textarea>
                     </div>
 
+                    {paymentError && (
+                      <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-2">
+                        <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                        <span>{paymentError}</span>
+                      </div>
+                    )}
+
                     <div className="pt-2">
                       <button
                         type="submit"
-                        className="w-full py-3.5 px-6 rounded-full bg-neutral-900 text-white font-bold text-sm hover:bg-neutral-800 transition-all flex items-center justify-center gap-2 shadow-md active:scale-95"
+                        disabled={isProcessingPayment}
+                        className="w-full py-4 px-6 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-md active:scale-95 disabled:opacity-60 cursor-pointer"
                       >
-                        <span>Lanjut ke Sesi Pembayaran</span>
-                        <ArrowRight className="w-4 h-4" />
+                        {isProcessingPayment ? (
+                          <>
+                            <RefreshCw className="w-4 h-4 animate-spin text-white" />
+                            <span>Membuka Midtrans Gateway...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Lock className="w-4 h-4 text-emerald-200" />
+                            <span>Bayar Sekarang via {currentSelectedMethod.name}</span>
+                            <ArrowRight className="w-4 h-4" />
+                          </>
+                        )}
                       </button>
                     </div>
                   </form>
-                </div>
-              )}
-
-              {/* ----------------- STEP 2: SESI PEMBAYARAN MIDTRANS REAL-TIME ----------------- */}
-              {step === 'payment' && (
-                <div>
-                  <div className="mb-6">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 bg-neutral-100 px-3 py-1 rounded-full">
-                      Langkah 2 dari 2: Pembayaran Midtrans Gateway
-                    </span>
-                    <h3 className="text-2xl font-black text-neutral-900 tracking-tight mt-3">
-                      Selesaikan Pembayaran Anda
-                    </h3>
-                    <p className="text-xs text-neutral-500 mt-1">
-                      Sistem akan memverifikasi dana yang masuk secara real-time sebelum status berganti lunas.
-                    </p>
-                  </div>
-
-                  {paymentError && (
-                    <div className="mb-5 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-2">
-                      <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                      <span>{paymentError}</span>
-                    </div>
-                  )}
-
-                  {/* Info Box Tagihan */}
-                  <div className="p-4 rounded-2xl bg-neutral-50 border border-neutral-200 mb-6 flex items-center justify-between">
-                    <div>
-                      <span className="text-xs text-neutral-500 block">Total Tagihan:</span>
-                      <span className="text-2xl font-black text-neutral-900">
-                        {orderData?.price || 'Rp 0'}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      {/* Floating Logo tanpa border & diperbesar (INLINE SVG) */}
-                      <PaymentLogo id={currentSelectedMethod.id} className="h-8 sm:h-9 max-w-[100px]" />
-                      <span className="text-xs font-black text-neutral-900">
-                        {currentSelectedMethod.name}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* DISPLAY PAYMENT INTERFACE SESUAI PILIHAN */}
-                  {selectedMethod === 'qris' || selectedMethod === 'gopay' || selectedMethod === 'dana' ? (
-                    <div className="p-6 rounded-2xl border border-neutral-200 bg-neutral-50/40 flex flex-col items-center justify-center text-center mb-6">
-                      
-                      {/* Logo Resmi Header E-Wallet / QRIS - Floating & Jelas (INLINE SVG) */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <PaymentLogo id={currentSelectedMethod.id} className="h-9 sm:h-10 max-w-[120px] drop-shadow-xs" />
-                        <span className="text-xs font-bold text-neutral-700">Official Payment Gateway</span>
-                      </div>
-
-                      <div className="p-4 bg-white border border-neutral-200 rounded-2xl shadow-sm mb-3">
-                        <svg className="w-48 h-48 text-neutral-900" viewBox="0 0 100 100" fill="currentColor">
-                          <path d="M10,10 h30 v30 h-30 z M15,15 v20 h20 v-20 z M20,20 h10 v10 h-10 z" />
-                          <path d="M60,10 h30 v30 h-30 z M65,15 v20 h20 v-20 z M70,20 h10 v10 h-10 z" />
-                          <path d="M10,60 h30 v30 h-30 z M15,65 v20 h20 v-20 z M20,70 h10 v10 h-10 z" />
-                          <path d="M50,15 h5 v10 h-5 z M50,35 h8 v8 h-8 z M45,48 h12 v5 h-12 z" />
-                          <path d="M60,50 h10 v10 h-10 z M75,50 h15 v5 h-15 z M60,65 h10 v25 h-10 z M75,65 h15 v10 h-15 z M75,80 h15 v10 h-15 z" />
-                        </svg>
-                      </div>
-                      <div className="text-xs font-extrabold text-neutral-900">
-                        Scan QRIS Menggunakan Aplikasi {currentSelectedMethod.name} atau Semua M-Banking
-                      </div>
-                      <div className="text-[11px] text-neutral-500 mt-1">
-                        Terhubung ke Midtrans Real-Time Callback &bull; Verifikasi Otomatis
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="p-6 rounded-2xl border border-neutral-200 bg-neutral-50/40 mb-6">
-                      <div className="flex items-center gap-3 mb-3">
-                        <PaymentLogo id={currentSelectedMethod.id} className="h-8 sm:h-9 max-w-[110px] drop-shadow-xs" />
-                        <span className="text-xs text-neutral-600 font-bold">
-                          Nomor Virtual Account {currentSelectedMethod.name}:
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between p-3.5 bg-white rounded-xl border border-neutral-200">
-                        <span className="font-mono font-black text-lg text-neutral-900 tracking-wider">
-                          8801 2345 6789 001
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => handleCopyVa('880123456789001')}
-                          className="px-3 py-1.5 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-bold flex items-center gap-1.5 transition-all"
-                        >
-                          <Copy className="w-4 h-4" />
-                          <span>{isCopied ? 'Tersalin!' : 'Salin'}</span>
-                        </button>
-                      </div>
-                      <div className="text-xs text-neutral-600 mt-2.5">
-                        Atas Nama: <strong>Quantum Studio (Midtrans Escrow)</strong>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* STRICT PAYMENT BUTTON (Membuka Midtrans / Memeriksa Settlement) */}
-                  <div className="space-y-3">
-                    <button
-                      type="button"
-                      disabled={isProcessingPayment}
-                      onClick={handlePayWithMidtrans}
-                      className="w-full py-4 px-6 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-md active:scale-95 disabled:opacity-60"
-                    >
-                      {isProcessingPayment ? (
-                        <>
-                          <RefreshCw className="w-4 h-4 animate-spin" />
-                          <span>Menghubungi Gateway Midtrans &amp; Verifikasi Dana...</span>
-                        </>
-                      ) : (
-                        <>
-                          <CreditCard className="w-4 h-4" />
-                          <span>Proses Pembayaran via Midtrans Gateway</span>
-                        </>
-                      )}
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setStep('form')}
-                      className="w-full py-2 text-xs font-semibold text-neutral-500 hover:text-neutral-800 transition-colors"
-                    >
-                      &larr; Ganti Metode Pembayaran / Ubah Data
-                    </button>
-                  </div>
                 </div>
               )}
 
