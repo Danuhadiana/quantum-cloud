@@ -49,36 +49,41 @@ export default function QuantumStudioDownload() {
                 <Monitor className="w-5 h-5" />
               </div>
               <h3 className="text-lg font-black text-neutral-900 mb-1">
-                Windows Installer
+                Windows Web Setup
               </h3>
               <p className="text-xs text-neutral-500 mb-4">
-                File installer setup resmi untuk Windows 10 &amp; 11 (64-Bit).
+                Installer ringan instan untuk Windows 10 &amp; 11 (64-Bit).
               </p>
               <div className="space-y-1 text-[11px] text-neutral-500 mb-6">
                 <div className="flex justify-between">
                   <span>Versi:</span>
-                  <strong className="text-neutral-800">v1.0.0-beta.exe</strong>
+                  <strong className="text-neutral-800">v1.0.0-beta</strong>
                 </div>
                 <div className="flex justify-between">
-                  <span>Ukuran File:</span>
-                  <strong className="text-neutral-800">118 MB (Setup Standalone)</strong>
+                  <span>Ukuran Download:</span>
+                  <strong className="text-emerald-700 font-bold">&lt; 1 MB (Instan 58 KB)</strong>
                 </div>
                 <div className="flex justify-between">
-                  <span>Arsitektur:</span>
-                  <span className="text-emerald-700 font-bold">x64 Native (Electron)</span>
+                  <span>Paket Inti:</span>
+                  <span className="text-neutral-700 font-medium">Download Otomatis</span>
                 </div>
               </div>
             </div>
 
-            <a
-              href="https://github.com/Danuhadiana/quantum-studio/releases/download/v1.0.0-beta/Quantum-Studio-Setup-1.0.0-beta.exe"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-3 px-4 rounded-xl bg-[#ff5429] hover:bg-[#e0451d] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all"
-            >
-              <Download className="w-4 h-4" />
-              <span>Download untuk Windows (.exe)</span>
-            </a>
+            <div className="space-y-2">
+              <a
+                href="https://github.com/Danuhadiana/quantum-studio/releases/download/v1.0.0-beta/Quantum-Studio-Setup.exe"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 px-4 rounded-xl bg-[#ff5429] hover:bg-[#e0451d] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff5429] cursor-pointer"
+              >
+                <Download className="w-4 h-4" />
+                <span>Download Setup Windows (.exe)</span>
+              </a>
+              <p className="text-[10px] text-center text-neutral-400">
+                Klik &quot;More info&quot; &rarr; &quot;Run anyway&quot; jika Windows SmartScreen muncul saat pertama kali dibuka.
+              </p>
+            </div>
           </div>
 
           {/* macOS Download Card */}
@@ -493,7 +498,7 @@ export const CinematicScene = ({ title, fps = 60 }) => {
                   Download &amp; Pasang Gratis
                 </h4>
                 <p className="text-xs text-neutral-400 leading-relaxed">
-                  Unduh file installer resmi Windows (<code>.exe</code>, 118 MB) atau kloning dari GitHub. Wizard instalasi langsung siap pakai tanpa perlu instalasi Node.js.
+                  Unduh file installer resmi Windows (<code>Quantum-Studio-Setup.exe</code>, hanya 58 KB). Begitu dibuka, installer otomatis mengunduh paket lengkap aplikasi di latar belakang tanpa repot setup manual.
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-neutral-800/80">
