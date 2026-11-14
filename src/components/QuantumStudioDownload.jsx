@@ -60,17 +60,17 @@ export default function QuantumStudioDownload() {
                 </div>
                 <div className="flex justify-between">
                   <span>Ukuran File:</span>
-                  <strong className="text-neutral-800">~18.4 MB (Ringan)</strong>
+                  <strong className="text-neutral-800">118 MB (Setup Standalone)</strong>
                 </div>
                 <div className="flex justify-between">
                   <span>Arsitektur:</span>
-                  <span className="text-emerald-700 font-bold">x64 Native</span>
+                  <span className="text-emerald-700 font-bold">x64 Native (Electron)</span>
                 </div>
               </div>
             </div>
 
             <a
-              href="https://github.com/Danuhadiana/quantum-studio/releases"
+              href="https://github.com/Danuhadiana/quantum-studio/releases/download/v1.0.0-beta/Quantum-Studio-Setup-1.0.0-beta.exe"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full py-3 px-4 rounded-xl bg-[#ff5429] hover:bg-[#e0451d] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all"
