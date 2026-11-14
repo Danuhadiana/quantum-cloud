@@ -70,7 +70,7 @@ export default function QuantumStudioDownload() {
             </div>
 
             <a
-              href="https://github.com/Danuhadiana/quantum-cloud/releases"
+              href="https://github.com/Danuhadiana/quantum-studio/releases"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full py-3 px-4 rounded-xl bg-[#ff5429] hover:bg-[#e0451d] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all"
@@ -109,7 +109,7 @@ export default function QuantumStudioDownload() {
             </div>
 
             <a
-              href="https://github.com/Danuhadiana/quantum-cloud/releases"
+              href="https://github.com/Danuhadiana/quantum-studio/releases"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full py-3 px-4 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all"
@@ -148,7 +148,7 @@ export default function QuantumStudioDownload() {
             </div>
 
             <a
-              href="https://github.com/Danuhadiana/quantum-cloud"
+              href="https://github.com/Danuhadiana/quantum-studio"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full py-3 px-4 rounded-xl bg-white hover:bg-neutral-50 border border-neutral-300 text-neutral-800 font-bold text-xs flex items-center justify-center gap-2 shadow-2xs transition-all"
