@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { 
   Download, Terminal, Play, Pause, Cpu, ShieldCheck, Sparkles, 
   Layers, CheckCircle2, ArrowRight, Laptop, Monitor, Code2, 
-  Sliders, Video, Zap, Key, DollarSign, Database, Github
+  Sliders, Video, Zap, Key, DollarSign, Database, Github,
+  QrCode, CreditCard, Lock
 } from 'lucide-react';
 
 export default function QuantumStudioDownload() {
@@ -456,73 +457,284 @@ export const CinematicScene = ({ title, fps = 60 }) => {
         </div>
 
         {/* ALUR PENGGUNAAN & PEMBELIAN LISENSI IN-APP */}
-        <div className="bg-neutral-900 rounded-[32px] p-8 sm:p-12 text-white relative overflow-hidden">
-          <div className="max-w-2xl mb-10">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20 inline-block mb-3">
-              Model Lisensi Terbuka
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+        <div className="bg-neutral-950 rounded-3xl p-6 sm:p-10 lg:p-12 text-white border border-neutral-800 shadow-xl relative overflow-hidden">
+          
+          {/* Section Header */}
+          <div className="max-w-3xl mb-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-[11px] font-bold text-neutral-300 mb-3.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#ff5429]" />
+              <span>Arsitektur Distribusi &amp; Lisensi Transparan</span>
+            </div>
+            
+            <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-white leading-tight">
               Bagaimana Alur Penggunaan &amp; Pembelian Lisensinya?
             </h3>
-            <p className="text-xs sm:text-sm text-neutral-400 mt-2 leading-relaxed">
-              Software ini didesain transparan. Anda mengunduh dan menjalankan aplikasinya terlebih dahulu di laptop, dan seluruh aktivasi atau pembelian fitur Pro dilakukan secara langsung di dalam software.
+            
+            <p className="text-xs sm:text-sm text-neutral-400 mt-2.5 leading-relaxed">
+              Software ini mengadopsi prinsip transparan: seluruh fitur inti diunduh dan dijalankan secara mandiri di komputer Anda tanpa langganan paksa. Pembelian lisensi Pro dilakukan sepenuhnya di dalam software (in-app purchase).
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* 4-Step Chronological Pipeline */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
             
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-3">
-              <div className="w-8 h-8 rounded-xl bg-[#ff5429] flex items-center justify-center font-black text-sm text-white">
-                1
+            {/* Step 1 */}
+            <div className="p-5 rounded-2xl bg-neutral-900/90 border border-neutral-800 flex flex-col justify-between hover:border-neutral-700 transition-colors">
+              <div>
+                <div className="flex items-center justify-between mb-3.5">
+                  <span className="w-7 h-7 rounded-lg bg-[#ff5429] flex items-center justify-center font-black text-xs text-white">
+                    1
+                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 bg-neutral-800 px-2 py-0.5 rounded-md">
+                    Tahap Awal
+                  </span>
+                </div>
+                <h4 className="font-bold text-sm text-white mb-1.5">
+                  Download &amp; Pasang Gratis
+                </h4>
+                <p className="text-xs text-neutral-400 leading-relaxed">
+                  Unduh file installer resmi Windows (<code>.exe</code>, 118 MB) atau kloning dari GitHub. Wizard instalasi langsung siap pakai tanpa perlu instalasi Node.js.
+                </p>
               </div>
-              <h4 className="font-extrabold text-sm text-white">Download &amp; Install Gratis</h4>
-              <p className="text-xs text-neutral-400 leading-relaxed">
-                Unduh file installer installer (.exe/.dmg) dari tombol di atas. Pasang di laptop Anda. Semua fitur koding dan timeline video lokal 100% gratis selamanya.
-              </p>
+              <div className="mt-4 pt-3 border-t border-neutral-800/80">
+                <span className="text-[11px] font-semibold text-emerald-400 flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                  <span>100% Gratis Selamanya</span>
+                </span>
+              </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-3">
-              <div className="w-8 h-8 rounded-xl bg-amber-500 flex items-center justify-center font-black text-sm text-white">
-                2
+            {/* Step 2 */}
+            <div className="p-5 rounded-2xl bg-neutral-900/90 border border-neutral-800 flex flex-col justify-between hover:border-neutral-700 transition-colors">
+              <div>
+                <div className="flex items-center justify-between mb-3.5">
+                  <span className="w-7 h-7 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center font-black text-xs text-neutral-200">
+                    2
+                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 bg-neutral-800 px-2 py-0.5 rounded-md">
+                    Eksekusi
+                  </span>
+                </div>
+                <h4 className="font-bold text-sm text-white mb-1.5">
+                  Koding &amp; Timeline Lokal
+                </h4>
+                <p className="text-xs text-neutral-400 leading-relaxed">
+                  Tulis animasi React/Remotion dan potong klip video lossless via FFmpeg native. Semua berkas proyek Anda tersimpan lokal di laptop tanpa koneksi internet.
+                </p>
               </div>
-              <h4 className="font-extrabold text-sm text-white">Gunakan API Key Sendiri (BYOA)</h4>
-              <p className="text-xs text-neutral-400 leading-relaxed">
-                Sambungkan akun OpenAI, Gemini, Claude milik Anda atau model lokal Ollama secara gratis tanpa bayar biaya sewa software bulanan.
-              </p>
+              <div className="mt-4 pt-3 border-t border-neutral-800/80">
+                <span className="text-[11px] font-semibold text-neutral-300 flex items-center gap-1.5">
+                  <Lock className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
+                  <span>Penyimpanan Lokal &amp; Offline</span>
+                </span>
+              </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-3">
-              <div className="w-8 h-8 rounded-xl bg-emerald-500 flex items-center justify-center font-black text-sm text-white">
-                3
+            {/* Step 3 */}
+            <div className="p-5 rounded-2xl bg-neutral-900/90 border border-neutral-800 flex flex-col justify-between hover:border-neutral-700 transition-colors">
+              <div>
+                <div className="flex items-center justify-between mb-3.5">
+                  <span className="w-7 h-7 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center font-black text-xs text-neutral-200">
+                    3
+                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 bg-neutral-800 px-2 py-0.5 rounded-md">
+                    Integrasi
+                  </span>
+                </div>
+                <h4 className="font-bold text-sm text-white mb-1.5">
+                  Kunci AI Mandiri (BYOA)
+                </h4>
+                <p className="text-xs text-neutral-400 leading-relaxed">
+                  Hubungkan API key Google Gemini, OpenAI, Claude, atau Ollama lokal. Token saver bawaan memangkas biaya pemakaian AI hingga 90% tanpa markup sewa SaaS.
+                </p>
               </div>
-              <h4 className="font-extrabold text-sm text-white">Upgrade Pro Langsung di Software</h4>
-              <p className="text-xs text-neutral-400 leading-relaxed">
-                Jika butuh Cloud GPU render booster &amp; prebuilt agen premium, Anda bisa mengklik tombol Upgrade di dalam menu software dan membayar via Midtrans secara instan.
-              </p>
+              <div className="mt-4 pt-3 border-t border-neutral-800/80">
+                <span className="text-[11px] font-semibold text-amber-400 flex items-center gap-1.5">
+                  <Zap className="w-3.5 h-3.5 shrink-0" />
+                  <span>Hemat Biaya Token 90%+</span>
+                </span>
+              </div>
+            </div>
+
+            {/* Step 4 */}
+            <div className="p-5 rounded-2xl bg-neutral-900/90 border border-neutral-800 flex flex-col justify-between hover:border-neutral-700 transition-colors">
+              <div>
+                <div className="flex items-center justify-between mb-3.5">
+                  <span className="w-7 h-7 rounded-lg bg-emerald-600 flex items-center justify-center font-black text-xs text-white">
+                    4
+                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded-md">
+                    Aktivasi
+                  </span>
+                </div>
+                <h4 className="font-bold text-sm text-white mb-1.5">
+                  Beli Lisensi Pro di Software
+                </h4>
+                <p className="text-xs text-neutral-400 leading-relaxed">
+                  Jika butuh akselerasi cloud render atau agen pro, klik menu Lisensi di sudut kanan software. Bayar instan via Midtrans (QRIS/VA) atau input kode serial.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-neutral-800/80">
+                <span className="text-[11px] font-semibold text-emerald-400 flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                  <span>Aktivasi Instan Tanpa Relogin</span>
+                </span>
+              </div>
             </div>
 
           </div>
 
-          {/* Quick Clone Terminal Box */}
-          <div className="mt-10 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          {/* In-App Checkout Showcase: Real Visual Representation */}
+          <div className="bg-neutral-900/80 rounded-2xl p-6 sm:p-8 border border-neutral-800 mb-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              
+              {/* Left Column: Flow Transparency Guarantees */}
+              <div className="lg:col-span-7 space-y-4">
+                <div className="flex items-center gap-2 text-xs font-bold text-[#ff5429]">
+                  <CreditCard className="w-4 h-4" />
+                  <span>Mekanisme Pembelian &amp; Aktivasi Lisensi</span>
+                </div>
+                
+                <h4 className="text-lg sm:text-xl font-extrabold text-white">
+                  Semua Transaksi Dilakukan Langsung dari Software
+                </h4>
+                
+                <p className="text-xs text-neutral-400 leading-relaxed">
+                  Kami tidak mengharuskan Anda membuat akun pengguna di web portal ini. Begitu software terinstal di laptop Anda, jendela pembelian terintegrasi resmi dengan payment gateway Midtrans:
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+                  <div className="p-3.5 rounded-xl bg-neutral-950 border border-neutral-800">
+                    <div className="font-bold text-white mb-1 flex items-center gap-1.5">
+                      <QrCode className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>QRIS &amp; E-Wallet Instan</span>
+                    </div>
+                    <p className="text-[11px] text-neutral-400 leading-normal">
+                      Scan kode QRIS langsung melalui GoPay, ShopeePay, BCA, atau mobile banking apapun.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-neutral-950 border border-neutral-800">
+                    <div className="font-bold text-white mb-1 flex items-center gap-1.5">
+                      <CreditCard className="w-3.5 h-3.5 text-blue-400" />
+                      <span>Virtual Account Bank</span>
+                    </div>
+                    <p className="text-[11px] text-neutral-400 leading-normal">
+                      Mendukung transfer otomatis Bank BCA, Mandiri, BNI, BRI, dan Permata 24 jam nonstop.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-neutral-950 border border-neutral-800">
+                    <div className="font-bold text-white mb-1 flex items-center gap-1.5">
+                      <Key className="w-3.5 h-3.5 text-amber-400" />
+                      <span>Aktivasi Kode Serial</span>
+                    </div>
+                    <p className="text-[11px] text-neutral-400 leading-normal">
+                      Punya kode lisensi (misal: <code>QTM-PRO-XXXX-XXXX</code>)? Input langsung untuk aktivasi offline.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-neutral-950 border border-neutral-800">
+                    <div className="font-bold text-white mb-1 flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>Terenkripsi di Perangkat</span>
+                    </div>
+                    <p className="text-[11px] text-neutral-400 leading-normal">
+                      Kunci lisensi tersimpan aman di sistem penyimpanan lokal komputer Anda.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: In-App Store Mockup Window */}
+              <div className="lg:col-span-5 bg-neutral-950 rounded-2xl border border-neutral-800 p-5 shadow-2xl">
+                <div className="flex items-center justify-between pb-3.5 border-b border-neutral-800 mb-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></div>
+                    <span className="text-[11px] font-mono text-neutral-400 ml-1">in-app-store.modal</span>
+                  </div>
+                  <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-800/80 px-2 py-0.5 rounded-md">
+                    Midtrans Secured
+                  </span>
+                </div>
+
+                <div className="space-y-3">
+                  <div className="p-3.5 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-between">
+                    <div>
+                      <div className="text-xs font-bold text-white">Quantum Studio Pro Lifetime</div>
+                      <div className="text-[11px] text-neutral-400">Lisensi Permanen 1 Komputer</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-xs font-extrabold text-[#ff5429]">Rp 299.000</div>
+                      <div className="text-[10px] text-neutral-500">Sekali Bayar</div>
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-neutral-900/60 border border-neutral-800/80 space-y-2">
+                    <div className="text-[11px] font-semibold text-neutral-300">Pilih Metode Pembayaran:</div>
+                    <div className="grid grid-cols-3 gap-2 text-center text-[11px] font-medium">
+                      <div className="py-2 px-1 rounded-lg bg-emerald-950/60 border border-emerald-600/60 text-emerald-300 font-bold">
+                        QRIS Instan
+                      </div>
+                      <div className="py-2 px-1 rounded-lg bg-neutral-800/80 text-neutral-400 border border-neutral-700/60">
+                        Virtual Account
+                      </div>
+                      <div className="py-2 px-1 rounded-lg bg-neutral-800/80 text-neutral-400 border border-neutral-700/60">
+                        E-Wallet
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-1">
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        readOnly
+                        value="QTM-PRO-DEMO-2026"
+                        className="bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-[11px] font-mono text-neutral-400 w-full focus:outline-none"
+                      />
+                      <button
+                        type="button"
+                        className="px-3.5 py-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white text-xs font-bold shrink-0 transition-colors cursor-pointer"
+                      >
+                        Aktivasi
+                      </button>
+                    </div>
+                    <div className="text-[10px] text-neutral-500 mt-1.5 flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                      <span>Verifikasi instan via enkripsi lokal</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Developer Quick-Start: Git Clone Terminal Box */}
+          <div className="pt-6 border-t border-neutral-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-xs text-neutral-400">
-              <Terminal className="w-4 h-4 text-emerald-400" />
-              <span>Untuk Developer: Install lewat Git terminal:</span>
+              <Terminal className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>Pengembang: Pasang dari kode sumber via Terminal:</span>
             </div>
             
             <div className="flex items-center gap-2 w-full sm:w-auto">
-              <code className="text-[11px] font-mono bg-black/60 px-3.5 py-2 rounded-xl text-neutral-300 border border-white/10 overflow-x-auto flex-1 sm:flex-none">
+              <code className="text-[11px] font-mono bg-neutral-900 px-3.5 py-2 rounded-xl text-neutral-300 border border-neutral-800 overflow-x-auto flex-1 sm:flex-none">
                 git clone https://github.com/Danuhadiana/quantum-studio.git
               </code>
               <button
                 type="button"
                 onClick={handleCopyInstallCmd}
-                className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs shrink-0 transition-all cursor-pointer"
+                className="px-3.5 py-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs shrink-0 transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff5429]"
+                aria-label="Salin perintah instalasi git clone"
               >
                 {isCopied ? 'Tersalin!' : 'Copy'}
               </button>
             </div>
           </div>
+
         </div>
 
       </div>
