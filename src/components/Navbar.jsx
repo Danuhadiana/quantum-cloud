@@ -43,11 +43,15 @@ export default function Navbar({ onOpenOrderModal }) {
 
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-6 text-[13px] font-semibold text-neutral-600">
+          <a href="#software" className="text-[#ff5429] font-bold hover:text-[#e0451d] transition-colors flex items-center gap-1">
+            <span>Software Desktop</span>
+            <span className="text-[10px] bg-orange-100 text-[#ff5429] px-1.5 py-0.2 rounded-full">New</span>
+          </a>
           <a href="#layanan" className="hover:text-black transition-colors">
-            Layanan
+            Layanan Web
           </a>
           <a href="#hosting" className="hover:text-black transition-colors">
-            Hosting
+            Cloud Hosting
           </a>
           <a href="#portofolio" className="hover:text-black transition-colors">
             Portofolio
@@ -56,7 +60,7 @@ export default function Navbar({ onOpenOrderModal }) {
             Paket Harga
           </a>
           <a href="#faq" className="hover:text-black transition-colors">
-            Pertanyaan
+            FAQ
           </a>
         </nav>
 

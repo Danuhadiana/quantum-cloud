@@ -6,6 +6,7 @@ import WebServices from './components/WebServices';
 import HostingPricing from './components/HostingPricing';
 import ServerCalculator from './components/ServerCalculator';
 import PortfolioShowcase from './components/PortfolioShowcase';
+import QuantumStudioDownload from './components/QuantumStudioDownload';
 import FeaturesTech from './components/FeaturesTech';
 import FaqSection from './components/FaqSection';
 import CheckoutPage from './components/CheckoutPage';
@@ -53,6 +54,9 @@ export default function App() {
 
       {/* Jasa Pembuatan Website Profesional */}
       <WebServices onOpenOrderModal={handleGoToCheckout} />
+
+      {/* Quantum Studio Desktop Software Download Portal */}
+      <QuantumStudioDownload />
 
       {/* Paket Cloud Hosting & VPS */}
       <HostingPricing onOpenOrderModal={handleGoToCheckout} />
